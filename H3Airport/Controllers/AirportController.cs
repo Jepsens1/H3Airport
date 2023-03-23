@@ -9,18 +9,18 @@ namespace H3Airport.Controllers
     [ApiController]
     public class AirportController : ControllerBase
     {
-        private AirportHandler _handler;
+        private ServiceManager _manager;
 
-        public AirportController(AirportHandler handler)
+        public AirportController()
         {
-            _handler = handler;
+            _manager = new ServiceManager(new AirportHandler());
         }
 
         [Route("[Action]")]
         [HttpGet]
         public async Task<ActionResult<List<Flight>>> GetFlights()
         {
-            var flights = await _handler.GetAllFlights();
+            var flights = await _manager.GetAllFlights();
             if(flights == null)
             {
                 return Problem();
@@ -31,7 +31,7 @@ namespace H3Airport.Controllers
         [HttpGet]
         public async Task<ActionResult<Flight>> GetFlight(int id)
         {
-            var flight = await _handler.GetFlight(id);
+            var flight = await _manager.GetFlight(id);
             if (flight == null)
             {
                 return Problem();
@@ -42,7 +42,7 @@ namespace H3Airport.Controllers
         [HttpGet]
         public async Task<ActionResult<Airline>> GetAirline(int id)
         {
-            var airline = await _handler.GetAirline(id);
+            var airline = await _manager.GetAirline(id);
             if (airline == null)
             {
                 return Problem();
@@ -53,7 +53,7 @@ namespace H3Airport.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Airline>>> GetAirlines()
         {
-            var airlines = await _handler.GetAirlines();
+            var airlines = await _manager.GetAirlines();
             if (airlines == null)
             {
                 return Problem();
@@ -64,7 +64,7 @@ namespace H3Airport.Controllers
         [HttpGet]
         public async Task<ActionResult<Airport>> GetAirport(string iata)
         {
-            var airport = await _handler.GetAirport(iata);
+            var airport = await _manager.GetAirport(iata);
             if (airport == null)
             {
                 return Problem();
@@ -75,7 +75,7 @@ namespace H3Airport.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Airport>>> GetAirports()
         {
-            var airports = await _handler.GetAirports();
+            var airports = await _manager.GetAirports();
             if (airports == null)
             {
                 return Problem();

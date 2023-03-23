@@ -9,18 +9,17 @@ public partial class H3airportContext : DbContext
     public H3airportContext()
     {
     }
-
-    public H3airportContext(DbContextOptions<H3airportContext> options)
-        : base(options)
-    {
-    }
-
     public virtual DbSet<Airline> Airlines { get; set; }
 
     public virtual DbSet<Airport> Airports { get; set; }
 
     public virtual DbSet<Flight> Flights { get; set; }
 
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer("Server=DESKTOP-51IFUJ0\\SQLEXPRESS;Database=H3Airport;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true;");
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Airline>(entity =>

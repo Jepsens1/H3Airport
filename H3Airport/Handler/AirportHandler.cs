@@ -3,19 +3,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace H3Airport.Handler
 {
-    public class AirportHandler
+    public class AirportHandler : IHandle
     {
         private H3airportContext _context;
 
-        public AirportHandler(H3airportContext context)
+        public AirportHandler()
         {
-            _context = context;
+            _context = new H3airportContext();
         }
 
         public async Task<List<Flight>> GetAllFlights()
         {
             var flights = await _context.Flights.ToListAsync();
-            if(flights == null)
+            if (flights == null)
             {
                 return null;
             }
@@ -32,7 +32,7 @@ namespace H3Airport.Handler
         }
         public async Task<List<Airline>> GetAirlines()
         {
-            var airlines = await _context.Airlines.Include(f=> f.Flights).ToListAsync();
+            var airlines = await _context.Airlines.Include(f => f.Flights).ToListAsync();
             if (airlines == null)
             {
                 return null;
@@ -41,7 +41,7 @@ namespace H3Airport.Handler
         }
         public async Task<Airline> GetAirline(int id)
         {
-            var airline =  await _context.Airlines.Include(f=> f.Flights).Where(i => i.Id == id).FirstOrDefaultAsync();
+            var airline = await _context.Airlines.Include(f => f.Flights).Where(i => i.Id == id).FirstOrDefaultAsync();
             if (airline == null)
             {
                 return null;

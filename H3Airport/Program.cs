@@ -19,11 +19,6 @@ namespace H3Airport
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddDbContext<H3airportContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DbContext"));
-            });
-            builder.Services.AddTransient<AirportHandler>();
 
             var app = builder.Build();
 
