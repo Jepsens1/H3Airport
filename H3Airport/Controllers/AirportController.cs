@@ -1,6 +1,5 @@
 ﻿using H3Airport.Handler;
 using H3Airport.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace H3Airport.Controllers
@@ -9,7 +8,7 @@ namespace H3Airport.Controllers
     [ApiController]
     public class AirportController : ControllerBase
     {
-        private ServiceManager _manager;
+        private IServiceManager _manager;
 
         public AirportController()
         {

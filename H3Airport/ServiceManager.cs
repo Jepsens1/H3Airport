@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace H3Airport
 {
-    public class ServiceManager
+    public class ServiceManager : IServiceManager
     {
         private IHandle _handle;
 
